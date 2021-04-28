@@ -8,13 +8,13 @@ struct Matrix {
     double* items;
 };
 
-// typedef void (*Op)(double acc, double value);
-using Op = double(double acc, double x);
+// typedef void (*Op)(uint32_t i, uint32_t j);
+using Op = void(Matrix* m, uint32_t i, uint32_t j);
 
 int matrix_create(Matrix* m, uint32_t rows, uint32_t cols);
 void matrix_free(Matrix* m);
 
-double matrix_op(Matrix* m, Op op, double init);
+void matrix_op(Matrix* m, Op op);
 
 double matrix_get(const Matrix* m, uint32_t row, uint32_t col);
 void matrix_set(Matrix* m, uint32_t row, uint32_t col, double value);

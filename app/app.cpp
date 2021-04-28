@@ -1,31 +1,25 @@
 #include <lib.h>
 
 #include <cassert>
+#include <iostream>
 
 using namespace std;
 
-double
-sum(double x, double y) {
-    return x + y;
+void
+print(Matrix* m, uint32_t i, uint32_t j) {
+    cout << "m[" << i << ", " << j << "] = " << matrix_get(m, i, j) << "\n";
 }
 
-double
-multiply(double x, double y) {
-    return x * y;
+void
+randomize(Matrix* m, uint32_t i, uint32_t j) {
+    matrix_set(m, i, j, rand() % 10);
 }
 
 int
 main(int argc, char* argv[]) {
     Matrix m;
     assert(matrix_create(&m, 3, 4) == 0);
-    
-    matrix_set(&m, 1, 2, 3);
-    matrix_set(&m, 2, 1, 4);
-    assert(matrix_get(&m, 1, 2) == 3);
-    assert(matrix_get(&m, 2, 1) == 4);
-
-    assert(matrix_op(&m, sum, 0) == 7);
-    assert(matrix_op(&m, multiply, 0) == 12);
-
+    matrix_op(&m, randomize);
+    matrix_op(&m, print);
     matrix_free(&m);
 }

@@ -29,14 +29,11 @@ matrix_set(Matrix* m, uint32_t row, uint32_t col, double value) {
     m->items[row * m->cols + col] = value;
 }
 
-double
-matrix_op(Matrix* m, Op op, double init) {
-    double result = init;
+void
+matrix_op(Matrix* m, Op op) {
     for (uint32_t i = 0; i < m->rows; i++) {
         for (uint32_t j = 0; j < m->cols; j++) {
-            double value = m->items[i * m->cols + j];
-            result = op(result, value);
+            op(m, i, j);
         }
     }
-    return result;
 }
